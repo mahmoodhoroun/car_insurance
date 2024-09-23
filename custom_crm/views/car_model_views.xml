@@ -1,0 +1,46 @@
+<odoo>
+
+    <record id="action_car_model" model="ir.actions.act_window">
+        <field name="name">Cars</field>
+        <field name="res_model">car.model</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first car model
+            </p>
+        </field>
+    </record>
+    <!-- Tree view for car.model -->
+    <record id="view_car_model_tree" model="ir.ui.view">
+        <field name="name">car.model.tree</field>
+        <field name="model">car.model</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="brand"/>
+                <field name="model"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form view for car.model -->
+    <record id="view_car_model_form" model="ir.ui.view">
+        <field name="name">car.model.form</field>
+        <field name="model">car.model</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                    <field name="brand"/>
+                    <field name="model"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <menuitem
+        id="menu_action_car_model"
+        name="Cars"
+        parent="crm.crm_menu_sales"
+        action="action_car_model"
+        sequence="10"/>
+</odoo>

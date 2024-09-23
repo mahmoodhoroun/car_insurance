@@ -1,0 +1,38 @@
+<odoo>
+    <!-- Define a custom module category -->
+    <record id="module_category_contacts_custom" model="ir.module.category">
+        <field name="name">Contacts</field>
+        <field name="sequence">5</field>
+    </record>
+
+    <!-- Define the Contact Manager group -->
+    <record id="group_contact_manager" model="res.groups">
+        <field name="name">Contact Manager</field>
+        <field name="category_id" ref="module_category_contacts_custom"/> <!-- Use the custom category -->
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+
+    <!-- Rule for Contact Manager to see all contacts -->
+    <record id="contact_manager_rule" model="ir.rule">
+        <field name="name">Contact Manager: See all contacts</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="groups" eval="[(4, ref('custom_crm.group_contact_manager'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <!-- Rule for regular users to only see their contacts -->
+    <record id="contact_user_rule" model="ir.rule">
+        <field name="name">User: See only own contacts</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+</odoo>
